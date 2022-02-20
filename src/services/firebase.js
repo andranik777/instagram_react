@@ -54,8 +54,8 @@ export async function getSuggestedProfiles(userId, following) {
 }
 
 export async function updateLoggedInUserFollowing(
-  loggedInUserDocId, // currently logged in user document id (karl's profile)
-  profileId, // the user that karl requests to follow
+  loggedInUserDocId, // currently logged in user document id (Andranik's profile)
+  profileId, // the user that Andranik requests to follow
   isFollowingProfile // true/false (am i currently following this person?)
 ) {
   return firebase
@@ -70,8 +70,8 @@ export async function updateLoggedInUserFollowing(
 }
 
 export async function updateFollowedUserFollowers(
-  profileDocId, // currently logged in user document id (karl's profile)
-  loggedInUserDocId, // the user that karl requests to follow
+  profileDocId, // currently logged in user document id (Andranik's profile)
+  loggedInUserDocId, // the user that Andranik requests to follow
   isFollowingProfile // true/false (am i currently following this person?)
 ) {
   return firebase
@@ -133,7 +133,7 @@ export async function isUserFollowingProfile(loggedInUserUsername, profileUserId
   const result = await firebase
     .firestore()
     .collection('users')
-    .where('username', '==', loggedInUserUsername) // karl (active logged in user)
+    .where('username', '==', loggedInUserUsername) // Andranik (active logged in user)
     .where('following', 'array-contains', profileUserId)
     .get();
 
@@ -152,13 +152,13 @@ export async function toggleFollow(
   profileUserId,
   followingUserId
 ) {
-  // 1st param: karl's doc id
+  // 1st param: Andranik's doc id
   // 2nd param: raphael's user id
-  // 3rd param: is the user following this profile? e.g. does karl follow raphael? (true/false)
+  // 3rd param: is the user following this profile? e.g. does Andranik follow raphael? (true/false)
   await updateLoggedInUserFollowing(activeUserDocId, profileUserId, isFollowingProfile);
 
-  // 1st param: karl's user id
+  // 1st param: Andranik's user id
   // 2nd param: raphael's doc id
-  // 3rd param: is the user following this profile? e.g. does karl follow raphael? (true/false)
+  // 3rd param: is the user following this profile? e.g. does Andranik follow raphael? (true/false)
   await updateFollowedUserFollowers(profileDocId, followingUserId, isFollowingProfile);
 }
